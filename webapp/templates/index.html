@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>5目並べ</title>
+    <style>
+        table { border-collapse: collapse; }
+        td { width: 40px; height: 40px; text-align: center; border: 1px solid #333; font-size: 24px; }
+        button { width: 100%; height: 100%; font-size: 20px; }
+        #reset-btn { margin-top: 15px; padding: 10px 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>5目並べ</h1>
+    <p>
+      {% if message %}
+        <strong>{{ message }}</strong>
+      {% else %}
+        {{ turn }} の番です
+      {% endif %}
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="turn" value="{{ turn }}">
+        <table>
+            {% for y_row in board %}
+                <tr>
+                    {% for cell in y_row %}
+                        {% with row=forloop.parentloop.counter0 col=forloop.counter0 %}
+                        <td>
+                            <input type="hidden" name="cell_{{ row }}_{{ col }}" value="{{ cell }}">
+                            {% if cell %}
+                                {{ cell }}
+                            {% else %}
+                                <button type="submit" name="row" value="{{ row }}" formaction="?col={{ col }}"></button>
+                            {% endif %}
+                        </td>
+                        {% endwith %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <button id="reset-btn" type="submit" name="reset" value="1">ゲームリセット</button>
+    </form>
+</body>
+</html>
