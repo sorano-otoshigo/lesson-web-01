@@ -14,19 +14,9 @@ def check_win(board, player):
             if count == 5:
                 return True
 
-    # 縦チェック
-    for x in range(size):
-        for y in range(size - 4):
-            count = 0
-            for i in range(5):
-                if board[y + i][x] == player:
-                    count += 1
-                else:
-                    break
-            if count == 5:
-                return True
+    # 縦チェック (実装せよ)
 
-    # 斜めチェック（右下方向）
+    # 斜めチェック 右下方向
     for y in range(size - 4):
         for x in range(size - 4):
             count = 0
@@ -38,17 +28,8 @@ def check_win(board, player):
             if count == 5:
                 return True
 
-    # 斜めチェック（右上方向）
-    for y in range(4, size):
-        for x in range(size - 4):
-            count = 0
-            for i in range(5):
-                if board[y - i][x + i] == player:
-                    count += 1
-                else:
-                    break
-            if count == 5:
-                return True
+    # 斜めチェック 右上方向 (実装せよ)
+
 
     return False
 
